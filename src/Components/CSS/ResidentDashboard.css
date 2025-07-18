@@ -1,0 +1,12 @@
+.admin-block-message {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 8px;
+  color: #856404;
+  text-align: center;
+}
+.admin-block-message h2 {
+  margin-bottom: 10px;
+}

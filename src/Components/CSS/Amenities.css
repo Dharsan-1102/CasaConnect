@@ -1,0 +1,204 @@
+.page-content {
+  background: linear-gradient(to right, #e0f7fa, #f9f9f9);
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
+
+.amenity-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}
+
+.amenity-card {
+  width: 340px;
+  height: 430px;
+  perspective: 1000px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.card-front {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-back {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  padding: 1rem;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.card-back p {
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.rules-btn {
+  margin-top: 8px;
+  background-color: transparent;
+  border: 1px solid #007bff;
+  color: #0c0c0c;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.rules-btn:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+
+.amenity-image {
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.amenity-info {
+  padding: 1rem;
+  text-align: left;
+}
+
+.amenity-info h3 {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 0.3rem;
+}
+
+.amenity-info p {
+  font-size: 0.9rem;
+  margin: 0.2rem 0;
+  color: #555;
+}
+
+.book-btn {
+  margin-top: 0.8rem;
+  width: 100%;
+  padding: 0.6rem 0;
+  background: linear-gradient(to right, #007bff, #00bcd4);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.book-btn:hover {
+  background: linear-gradient(to right, #005ecb, #009da8);
+}
+
+.rules-hover {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 123, 255, 0.95);
+  color: #fff;
+  padding: 0.8rem;
+  font-size: 0.85rem;
+  font-style: italic;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: all 0.3s ease-in-out;
+}
+
+.mini-booking-form {
+  padding: 1.2rem;
+  background-color: #fdfdfd;
+  border-top: 1px solid #eee;
+  border-radius: 0 0 12px 12px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.submit-btn {
+  background-color: #28a745;
+  color: #fff;
+  padding: 10px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  background-color: #218838;
+}
+
+.feedback {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: green;
+  text-align: center;
+}
+

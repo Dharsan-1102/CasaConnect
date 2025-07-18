@@ -1,0 +1,149 @@
+.add-flat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #ece9e6, #ffffff);
+  font-family: 'Poppins', sans-serif;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+.add-flat-box {
+  display: flex;
+  flex-direction: row;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  max-width: 950px;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.add-flat-left {
+  flex: 1;
+  background: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.add-flat-left h1 {
+  font-size: 1.6rem;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.add-flat-left .subtitle {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.add-flat-image {
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+}
+
+.add-flat-right {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.add-flat-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.addflat-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.addflat-form-group label {
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.addflat-form-group input,
+.addflat-form-group select {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.addflat-form-group input:focus,
+.addflat-form-group select:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+.add-flat-btn {
+  padding: 0.75rem;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-flat-btn:hover {
+  background-color: #357ab8;
+}
+
+.flat-list {
+  width: 100%;
+  max-width: 950px;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.flat-list h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.flat-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.flat-card {
+  background: #f9f9f9;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  width: 250px;
+  text-align: left;
+}
+
+.flat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.flat-card h4 {
+  margin: 0;
+  color: #34495e;
+}
+
+.flat-card p {
+  margin: 4px 0;
+  font-size: 0.9rem;
+  color: #555;
+}
