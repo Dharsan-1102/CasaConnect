@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
-import "./css/AddBill.css";
+import "./CSS/AddBill.css";
 import BillImg from "../assets/bill.png";
 
 const AddBill = () => {

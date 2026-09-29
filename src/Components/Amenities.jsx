@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
-import "./css/Amenities.css";
+import "./CSS/Amenities.css";
 
 import turfImg from "../assets/turf.png";
 import poolImg from "../assets/swimming-pool.png";

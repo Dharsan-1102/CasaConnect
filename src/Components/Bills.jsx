@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { format } from "date-fns";
 import Navbar from "./Navbar";
-import "./css/Bills.css";
+import "./CSS/Bills.css";
 
 const Bills = () => {
   const [bills, setBills] = useState([]);

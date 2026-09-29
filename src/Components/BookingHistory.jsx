@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./css/BookingHistory.css";
+import "./CSS/BookingHistory.css";
 
 const BookingHistory = () => {
   const [bookings, setBookings] = useState([]);
