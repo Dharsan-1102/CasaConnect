@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
-import './CSS/Login.css';
-import loginImage from '../assets/login.png';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+import "./CSS/Login.css";
+import loginImage from "../assets/login.png";
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [attempts, setAttempts] = useState(0);
   const navigate = useNavigate();
@@ -17,32 +17,39 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     try {
-      const res = await axios.post('http://localhost:5000/login', credentials);
-      const { token, role, name, profilePhoto, userId,apartment} = res.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('userRole', role);
-      localStorage.setItem('userName', name);
-      localStorage.setItem('userPhoto', profilePhoto);
-      localStorage.setItem('userId', userId);
-      localStorage.setItem('userApartment', apartment);
+      const res = await axios.post("http://localhost:5000/login", credentials);
+      const { token, role, name, profilePhoto, userId, apartment } = res.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("userRole", role);
+      localStorage.setItem("userName", name);
+      localStorage.setItem("userPhoto", profilePhoto);
+      localStorage.setItem("userId", userId);
+      localStorage.setItem("userApartment", apartment);
 
       const normalizedRole = role?.toLowerCase().trim();
       switch (normalizedRole) {
-        case 'admin': navigate('/admin'); break;
-        case 'resident': navigate('/resident'); break;
-        case 'guard': navigate('/guard-dashboard'); break;
-        case 'maintenance': navigate('/maintenance-dashboard'); break;
-        default: navigate('/');
+        case "admin":
+          navigate("/admin");
+          break;
+        case "resident":
+          navigate("/resident");
+          break;
+        case "guard":
+          navigate("/guard-dashboard");
+          break;
+        case "maintenance":
+          navigate("/maintenance-dashboard");
+          break;
+        default:
+          navigate("/");
       }
       console.log("Login successful. Role received:", role);
-
-
     } catch (err) {
-      setAttempts(prev => prev + 1);
-      setError(err.response?.data?.error || 'Login failed. Please try again.');
+      setAttempts((prev) => prev + 1);
+      setError(err.response?.data?.error || "Login failed. Please try again.");
     }
   };
 
@@ -69,7 +76,7 @@ const Login = () => {
 
             <label>Password</label>
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Enter your password"
               value={credentials.password}
@@ -88,13 +95,35 @@ const Login = () => {
             </div>
 
             {error && <p className="login-error-msg">{error}</p>}
-            {attempts > 0 && <p className="login-attempt-msg">Wrong attempts: {attempts}</p>}
+            {attempts > 0 && (
+              <p className="login-attempt-msg">Wrong attempts: {attempts}</p>
+            )}
 
-            <button type="submit" className="login-btn">Login</button>
-
+            <button type="submit" className="login-btn">
+              Login
+            </button>
+            <button 
+              type="button" 
+              className="login-btn"
+              style={{ marginTop: "15px", backgroundColor: "#6c757d" }}
+              onClick={() => {
+                localStorage.setItem("token", "guest-token");
+                localStorage.setItem("userRole", "admin");
+                localStorage.setItem("userName", "Guest Admin");
+                localStorage.setItem("userId", "guest-id");
+                localStorage.setItem("userApartment", "Guest Apartment");
+                navigate("/admin");
+              }}
+            >
+              Guest Mode
+            </button>
             <div className="login-links">
-              <p><Link to="/forgot-password">Forgot Password?</Link></p>
-              <p>Don't have an account? <Link to="/">Register here</Link></p>
+              <p>
+                <Link to="/forgot-password">Forgot Password?</Link>
+              </p>
+              <p>
+                Don't have an account? <Link to="/">Register here</Link>
+              </p>
             </div>
           </form>
         </div>

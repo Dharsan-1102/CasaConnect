@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const noticeSchema = new mongoose.Schema({
   message: String,
@@ -7,5 +7,4 @@ const noticeSchema = new mongoose.Schema({
   apartment: String,
 });
 
-
-module.exports = mongoose.model('Notice', noticeSchema);
+module.exports = mongoose.model("Notice", noticeSchema);

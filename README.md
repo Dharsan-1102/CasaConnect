@@ -1,12 +1,70 @@
-# React + Vite
+# CasaConnect 🏡
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CasaConnect is a comprehensive Society and Apartment Management System designed to simplify the daily operations of residential communities. Built as a collaborative college project, this application provides dedicated interfaces for Residents, Guards, Maintenance staff, and Administrators to ensure seamless communication and facility management.
 
-Currently, two official plugins are available:
+## Features ✨
+- **Admin Dashboard**: Manage societies, apartments, and users (residents, guards, maintenance).
+- **Resident Portal**: Book amenities, track maintenance issues, view bills, and manage profiles.
+- **Guard Panel**: Track visitor entries and check-outs securely.
+- **Maintenance Interface**: Update and resolve resident issues efficiently.
+- **Role-Based Authentication**: Secure login and access control powered by JWT.
+- **Notifications & Notices**: Real-time updates and community announcements.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack 💻
+- **Frontend**: React.js, Vite, Axios, CSS Modules/Styles
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB & Mongoose
+- **Authentication**: JWT & bcrypt
+- **File Storage**: Cloudinary (for profile photos)
 
-## Expanding the ESLint configuration
+## Installation & Setup 🚀
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/casaconnect.git
+   cd casaconnect
+   ```
+
+2. **Install frontend dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Install backend dependencies:**
+   ```bash
+   cd Backend
+   npm install
+   ```
+
+4. **Environment Variables:**
+   Create a `.env` file in the `Backend/` directory and configure the following:
+   ```env
+   PORT=5000
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_secret_key
+   EMAIL_USER=your_email@gmail.com
+   EMAIL_PASS=your_email_app_password
+   CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+   CLOUDINARY_API_KEY=your_cloudinary_key
+   CLOUDINARY_API_SECRET=your_cloudinary_secret
+   ```
+
+5. **Run the Application:**
+   - **Start the Backend:**
+     ```bash
+     cd Backend
+     node index.js
+     ```
+   - **Start the Frontend:** (Open a new terminal at the root)
+     ```bash
+     npm run dev
+     ```
+
+## Team Members 👥
+- [Add Team Member 1 Name/GitHub]
+- [Add Team Member 2 Name/GitHub]
+- [Add Team Member 3 Name/GitHub]
+- [Add Team Member 4 Name/GitHub]
+
+## License 📄
+This project was developed for educational purposes.

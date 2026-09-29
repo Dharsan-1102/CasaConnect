@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './CSS/Home.css';
-import homeImage from '../assets/community.jpg';
+import React from "react";
+import { Link } from "react-router-dom";
+import "./CSS/Home.css";
+import homeImage from "../assets/community.jpg";
 
 const Home = () => {
   return (
@@ -18,7 +18,9 @@ const Home = () => {
         <div className="home-hero-text">
           <h2>Connect with Your Apartment Community</h2>
           <p>Stay informed. Report issues. Celebrate events together.</p>
-          <Link to="/signup" className="home-cta-button">Get Started</Link>
+          <Link to="/signup" className="home-cta-button">
+            Get Started
+          </Link>
         </div>
       </header>
     </div>

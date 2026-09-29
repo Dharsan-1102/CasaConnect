@@ -1,55 +1,60 @@
-import React, { useState,useEffect } from 'react';
-import axios from 'axios';
-import './CSS/Users.css';
-import userImage from '../assets/signup.png';
-import Navbar from './Navbar';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./CSS/Users.css";
+import userImage from "../assets/signup.png";
+import Navbar from "./Navbar";
 
 const Users = () => {
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [passwordStrength, setPasswordStrength] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState("");
   const [form, setForm] = useState({
-    name: '',
-    apartment: '',
-    flat: '',
-    email: '',
-    password: '',
-    phone_number: '',
-    block: '',
-    resident_role: '',
-    profile_photo_url: '',
-    status: 'Active',
-    shift_time: '',
-    specialization: '',
-    role: '',
+    name: "",
+    apartment: "",
+    flat: "",
+    email: "",
+    password: "",
+    phone_number: "",
+    block: "",
+    resident_role: "",
+    profile_photo_url: "",
+    status: "Active",
+    shift_time: "",
+    specialization: "",
+    role: "",
   });
 
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
   const [apartments, setApartments] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [existingUsers, setExistingUsers] = useState([]);
 
   useEffect(() => {
-    if (form.apartment && role !== 'admin') {
+    if (form.apartment && role !== "admin") {
       const fetchUsers = async () => {
         try {
-          const res = await axios.get(`http://localhost:5000/users/by-apartment/${form.apartment}`);
+          const res = await axios.get(
+            `http://localhost:5000/users/by-apartment/${form.apartment}`,
+          );
           setExistingUsers(res.data);
         } catch (err) {
-          console.error('Failed to fetch existing users:', err);
+          console.error("Failed to fetch existing users:", err);
         }
       };
 
       fetchUsers();
-    } 
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.apartment]);
 
   useEffect(() => {
     const fetchApartments = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/apartment/all');
+        const res = await axios.get("http://localhost:5000/apartment/all");
         setApartments(res.data);
       } catch (err) {
-        console.error('Error fetching apartments:', err);
+        console.error("Error fetching apartments:", err);
       }
     };
 
@@ -68,56 +73,60 @@ const Users = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setMessage('');
+    setError("");
+    setMessage("");
 
     const cleanedForm = { ...form };
-    if (role !== 'resident') {
+    if (role !== "resident") {
       delete cleanedForm.flat;
       delete cleanedForm.block;
       delete cleanedForm.resident_role;
     }
-    if (role !== 'guard') {
+    if (role !== "guard") {
       delete cleanedForm.shift_time;
     }
-    if (role !== 'maintenance') {
+    if (role !== "maintenance") {
       delete cleanedForm.specialization;
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/admin-create-user', cleanedForm);
-      setMessage('User created successfully!');
+      // eslint-disable-next-line no-unused-vars
+      const res = await axios.post(
+        "http://localhost:5000/admin-create-user",
+        cleanedForm,
+      );
+      setMessage("User created successfully!");
       setForm({
-        name: '',
-        apartment: '',
-        flat: '',
-        email: '',
-        password: '',
-        phone_number: '',
-        block: '',
-        resident_role: '',
-        status: 'Active',
-        shift_time: '',
-        specialization: '',
-        role: '',
+        name: "",
+        apartment: "",
+        flat: "",
+        email: "",
+        password: "",
+        phone_number: "",
+        block: "",
+        resident_role: "",
+        status: "Active",
+        shift_time: "",
+        specialization: "",
+        role: "",
       });
-      setRole('');
+      setRole("");
     } catch (err) {
-      const errorMsg = err.response?.data?.error || 'Failed to create user';
+      const errorMsg = err.response?.data?.error || "Failed to create user";
       setError(errorMsg);
     }
   };
-  
+
   const checkPasswordStrength = (password) => {
     const strongRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}$/;
     const mediumRegex = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
 
     if (strongRegex.test(password)) {
-      setPasswordStrength('Strong');
+      setPasswordStrength("Strong");
     } else if (mediumRegex.test(password)) {
-      setPasswordStrength('Medium');
+      setPasswordStrength("Medium");
     } else {
-      setPasswordStrength('Weak');
+      setPasswordStrength("Weak");
     }
   };
 
@@ -136,7 +145,12 @@ const Users = () => {
           <form onSubmit={handleSubmit} className="signup-form">
             <div className="form-group">
               <label>Select Role</label>
-              <select name="role" value={role} onChange={handleRoleChange} required>
+              <select
+                name="role"
+                value={role}
+                onChange={handleRoleChange}
+                required
+              >
                 <option value="">-- Select Role --</option>
                 <option value="resident">Resident</option>
                 <option value="admin">Admin</option>
@@ -147,19 +161,33 @@ const Users = () => {
 
             <div className="form-group">
               <label>Full Name</label>
-              <input type="text" name="name" value={form.name} onChange={handleChange} required placeholder="Enter the Name" />
+              <input
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                required
+                placeholder="Enter the Name"
+              />
             </div>
 
             <div className="form-group">
               <label>Email</label>
-              <input type="email" name="email" value={form.email} onChange={handleChange} required placeholder="@example.com" />
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+                placeholder="@example.com"
+              />
             </div>
 
             <div className="form-group">
               <label>Password</label>
               <div className="password-wrapper">
                 <input
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   value={form.password}
                   onChange={(e) => {
@@ -172,9 +200,9 @@ const Users = () => {
                 <button
                   type="button"
                   className="show-toggle"
-                  onClick={() => setShowPassword(prev => !prev)}
+                  onClick={() => setShowPassword((prev) => !prev)}
                 >
-                  {showPassword ? 'Hide' : 'Show'}
+                  {showPassword ? "Hide" : "Show"}
                 </button>
               </div>
               {passwordStrength && (
@@ -186,34 +214,68 @@ const Users = () => {
 
             <div className="form-group">
               <label>Apartment</label>
-              <select name="apartment" value={form.apartment} onChange={handleChange} required>
+              <select
+                name="apartment"
+                value={form.apartment}
+                onChange={handleChange}
+                required
+              >
                 <option value="">Select Apartment</option>
                 {apartments.map((apt) => (
-                  <option key={apt._id} value={apt.name}>{apt.name}</option>
+                  <option key={apt._id} value={apt.name}>
+                    {apt.name}
+                  </option>
                 ))}
               </select>
             </div>
 
-            {role === 'resident' && (
+            {role === "resident" && (
               <>
                 <div className="form-group">
                   <label>Flat</label>
-                  <input type="text" name="flat" value={form.flat} onChange={handleChange} required placeholder="B-204" />
+                  <input
+                    type="text"
+                    name="flat"
+                    value={form.flat}
+                    onChange={handleChange}
+                    required
+                    placeholder="B-204"
+                  />
                 </div>
 
                 <div className="form-group">
                   <label>Phone Number</label>
-                  <input type="text" name="phone_number" pattern="[0-9]{10}" value={form.phone_number} onChange={handleChange} required placeholder="Enter 10-digit Number" />
+                  <input
+                    type="text"
+                    name="phone_number"
+                    pattern="[0-9]{10}"
+                    value={form.phone_number}
+                    onChange={handleChange}
+                    required
+                    placeholder="Enter 10-digit Number"
+                  />
                 </div>
 
                 <div className="form-group">
                   <label>Block</label>
-                  <input type="text" name="block" value={form.block} onChange={handleChange} required placeholder="Block A" />
+                  <input
+                    type="text"
+                    name="block"
+                    value={form.block}
+                    onChange={handleChange}
+                    required
+                    placeholder="Block A"
+                  />
                 </div>
 
                 <div className="form-group">
                   <label>Resident Role</label>
-                  <select name="resident_role" value={form.resident_role} onChange={handleChange} required>
+                  <select
+                    name="resident_role"
+                    value={form.resident_role}
+                    onChange={handleChange}
+                    required
+                  >
                     <option value="">Select</option>
                     <option value="Owner">Owner</option>
                     <option value="Tenant">Tenant</option>
@@ -222,7 +284,12 @@ const Users = () => {
 
                 <div className="form-group">
                   <label>Status</label>
-                  <select name="status" value={form.status} onChange={handleChange} required>
+                  <select
+                    name="status"
+                    value={form.status}
+                    onChange={handleChange}
+                    required
+                  >
                     <option value="Active">Active</option>
                     <option value="Inactive">Inactive</option>
                   </select>
@@ -230,16 +297,29 @@ const Users = () => {
               </>
             )}
 
-            {role === 'guard' && (
+            {role === "guard" && (
               <>
                 <div className="form-group">
                   <label>Phone Number</label>
-                  <input type="text" name="phone_number" pattern="[0-9]{10}" value={form.phone_number} onChange={handleChange} required placeholder="Enter 10-digit Number" />
+                  <input
+                    type="text"
+                    name="phone_number"
+                    pattern="[0-9]{10}"
+                    value={form.phone_number}
+                    onChange={handleChange}
+                    required
+                    placeholder="Enter 10-digit Number"
+                  />
                 </div>
 
                 <div className="form-group">
                   <label>Shift Time</label>
-                  <select name="shift_time" value={form.shift_time} onChange={handleChange} required>
+                  <select
+                    name="shift_time"
+                    value={form.shift_time}
+                    onChange={handleChange}
+                    required
+                  >
                     <option value="">Select Shift</option>
                     <option value="Morning">Morning</option>
                     <option value="Evening">Evening</option>
@@ -249,40 +329,42 @@ const Users = () => {
               </>
             )}
 
-            {role === 'maintenance' && (
-            <>
-              <div className="form-group">
-                <label>Phone Number</label>
-                <input
-                  type="text"
-                  name="phone_number"
-                  pattern="[0-9]{10}"
-                  value={form.phone_number}
-                  onChange={handleChange}
-                  required
-                  placeholder="Enter 10-digit Number"
-                />
-              </div>
+            {role === "maintenance" && (
+              <>
+                <div className="form-group">
+                  <label>Phone Number</label>
+                  <input
+                    type="text"
+                    name="phone_number"
+                    pattern="[0-9]{10}"
+                    value={form.phone_number}
+                    onChange={handleChange}
+                    required
+                    placeholder="Enter 10-digit Number"
+                  />
+                </div>
 
-              <div className="form-group">
-                <label>Specialization</label>
-                <select
-                  name="specialization"
-                  value={form.specialization}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Select Specialization</option>
-                  <option value="Plumber">Plumber</option>
-                  <option value="Electrician">Electrician</option>
-                  <option value="Carpenter">Carpenter</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-            </>
-          )}
+                <div className="form-group">
+                  <label>Specialization</label>
+                  <select
+                    name="specialization"
+                    value={form.specialization}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select Specialization</option>
+                    <option value="Plumber">Plumber</option>
+                    <option value="Electrician">Electrician</option>
+                    <option value="Carpenter">Carpenter</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </>
+            )}
 
-            <button type="submit" className="signup-btn">Create User</button>
+            <button type="submit" className="signup-btn">
+              Create User
+            </button>
             {message && <p className="success-msg">{message}</p>}
             {error && <p className="error-msg">{error}</p>}
           </form>

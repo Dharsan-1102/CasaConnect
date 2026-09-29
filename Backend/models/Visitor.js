@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const visitorSchema = new mongoose.Schema({
   name: String,
@@ -9,7 +9,7 @@ const visitorSchema = new mongoose.Schema({
   photo_url: String,
   check_in_time: { type: Date, default: Date.now },
   check_out_time: Date,
-  approved_by: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  approved_by: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
-module.exports = mongoose.model('Visitor', visitorSchema);
+module.exports = mongoose.model("Visitor", visitorSchema);

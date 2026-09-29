@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import './CSS/Signup.css';
-import signupImage from '../assets/signup.png';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "./CSS/Signup.css";
+import signupImage from "../assets/signup.png";
 
 const Signup = () => {
   const [form, setForm] = useState({
-    name: '',
-    apartment: '',
-    flat: '',
-    email: '',
-    password: '',
-    otp: '',
-    phone_number: '',
-    block: '',
-    resident_role: '',
-    profile_photo_url: '',
-    status: '',
+    name: "",
+    apartment: "",
+    flat: "",
+    email: "",
+    password: "",
+    otp: "",
+    phone_number: "",
+    block: "",
+    resident_role: "",
+    profile_photo_url: "",
+    status: "",
   });
 
   const [otpSent, setOtpSent] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -28,39 +28,45 @@ const Signup = () => {
   };
 
   const sendOTP = async () => {
-    setError('');
+    setError("");
     try {
-      const res = await axios.post('http://localhost:5000/send-otp', { email: form.email });
+      const res = await axios.post("http://localhost:5000/send-otp", {
+        email: form.email,
+      });
       if (res.data.success) {
-        alert('OTP sent to your email');
+        alert("OTP sent to your email");
         setOtpSent(true);
       }
     } catch {
-      setError('Failed to send OTP');
+      setError("Failed to send OTP");
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
     if (!passwordRegex.test(form.password)) {
-      setError('Password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.');
+      setError(
+        "Password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.",
+      );
       return;
     }
 
     if (!form.otp || form.otp.length < 4) {
-      setError('Please enter the OTP sent to your email.');
+      setError("Please enter the OTP sent to your email.");
       return;
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/signup', form);
-      alert('Account created successfully!');
-      navigate('/login');
+      // eslint-disable-next-line no-unused-vars
+      const res = await axios.post("http://localhost:5000/signup", form);
+      alert("Account created successfully!");
+      navigate("/login");
     } catch (err) {
-      setError(err.response?.data?.error || 'Signup failed');
+      setError(err.response?.data?.error || "Signup failed");
     }
   };
 
@@ -82,7 +88,12 @@ const Signup = () => {
 
             <div className="form-group">
               <label>Apartment</label>
-              <input type="text" name="apartment" onChange={handleChange} required />
+              <input
+                type="text"
+                name="apartment"
+                onChange={handleChange}
+                required
+              />
             </div>
 
             <div className="form-group">
@@ -92,12 +103,22 @@ const Signup = () => {
 
             <div className="form-group">
               <label>Phone Number</label>
-              <input type="text" name="phone_number" onChange={handleChange} required />
+              <input
+                type="text"
+                name="phone_number"
+                onChange={handleChange}
+                required
+              />
             </div>
 
             <div className="form-group">
               <label>Block</label>
-              <input type="text" name="block" onChange={handleChange} required />
+              <input
+                type="text"
+                name="block"
+                onChange={handleChange}
+                required
+              />
             </div>
 
             <div className="form-group">
@@ -111,7 +132,11 @@ const Signup = () => {
 
             <div className="form-group">
               <label>Profile Photo URL</label>
-              <input type="text" name="profile_photo_url" onChange={handleChange} />
+              <input
+                type="text"
+                name="profile_photo_url"
+                onChange={handleChange}
+              />
             </div>
 
             <div className="form-group">
@@ -129,7 +154,10 @@ const Signup = () => {
                 type="email"
                 name="email"
                 onChange={(e) =>
-                  setForm((prev) => ({ ...prev, email: e.target.value.trim().toLowerCase() }))
+                  setForm((prev) => ({
+                    ...prev,
+                    email: e.target.value.trim().toLowerCase(),
+                  }))
                 }
                 required
               />
@@ -138,20 +166,47 @@ const Signup = () => {
             <button type="button" className="signup-btn" onClick={sendOTP}>
               Send OTP
             </button>
+            <button 
+              type="button" 
+              className="signup-btn"
+              style={{ marginTop: "15px", backgroundColor: "#6c757d" }}
+              onClick={() => {
+                localStorage.setItem("token", "guest-token");
+                localStorage.setItem("userRole", "admin");
+                localStorage.setItem("userName", "Guest Admin");
+                localStorage.setItem("userId", "guest-id");
+                localStorage.setItem("userApartment", "Guest Apartment");
+                window.location.href = "/admin";
+              }}
+            >
+              Guest Mode
+            </button>
 
             {otpSent && (
               <>
                 <div className="form-group">
                   <label>OTP</label>
-                  <input type="text" name="otp" onChange={handleChange} required />
+                  <input
+                    type="text"
+                    name="otp"
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
 
                 <div className="form-group">
                   <label>Password</label>
-                  <input type="password" name="password" onChange={handleChange} required />
+                  <input
+                    type="password"
+                    name="password"
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
 
-                <button type="submit" className="signup-btn">Register</button>
+                <button type="submit" className="signup-btn">
+                  Register
+                </button>
               </>
             )}
 

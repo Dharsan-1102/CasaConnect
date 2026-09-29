@@ -1,5 +1,5 @@
 .home-container {
-  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
   background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
 }
@@ -14,8 +14,8 @@
   font-weight: 600;
 }
 
-.home-navbar h1{
-    color: #03045e;
+.home-navbar h1 {
+  color: #03045e;
 }
 
 .home-navbar div {
@@ -34,7 +34,7 @@
 }
 
 .home-navbar a::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0%;
   height: 3px;
@@ -52,7 +52,6 @@
 .home-navbar a:hover::after {
   width: 100%;
 }
-
 
 .home-hero {
   position: relative;

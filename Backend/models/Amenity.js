@@ -1,39 +1,39 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const AmenitySchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   type: {
     type: String,
     required: true,
     enum: [
-      'Gym',
-      'Turf',
-      'Swimming Pool',
-      'Beauty Parlour',
-      'Library',
-      'Club House',
-      'Multipurpose Hall'
-    ]
+      "Gym",
+      "Turf",
+      "Swimming Pool",
+      "Beauty Parlour",
+      "Library",
+      "Club House",
+      "Multipurpose Hall",
+    ],
   },
   location: {
     type: String,
-    required: true
+    required: true,
   },
   rules: {
     type: String,
-    required: true
+    required: true,
   },
   available_slots: {
     type: Number,
-    required: true
+    required: true,
   },
   created_at: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-module.exports = mongoose.model('Amenity', AmenitySchema);
+module.exports = mongoose.model("Amenity", AmenitySchema);

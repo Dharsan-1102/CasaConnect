@@ -1,33 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { format } from 'date-fns';
-import Navbar from './Navbar';
-import './css/Bills.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { format } from "date-fns";
+import Navbar from "./Navbar";
+import "./css/Bills.css";
 
 const Bills = () => {
   const [bills, setBills] = useState([]);
-  const [filter, setFilter] = useState('All');
+  const [filter, setFilter] = useState("All");
+  // eslint-disable-next-line no-unused-vars
   const [residentId, setResidentId] = useState(null);
 
   const formatDateTime = (dateStr) => {
-    return format(new Date(dateStr), 'dd-MM-yyyy hh:mm a');
+    return format(new Date(dateStr), "dd-MM-yyyy hh:mm a");
   };
 
   useEffect(() => {
     const fetchBills = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const profileRes = await axios.get('http://localhost:5000/profile', {
+        const token = localStorage.getItem("token");
+        const profileRes = await axios.get("http://localhost:5000/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
         const resId = profileRes.data._id;
         setResidentId(resId);
 
-        const billsRes = await axios.get(`http://localhost:5000/bills/by-resident/${resId}`);
+        const billsRes = await axios.get(
+          `http://localhost:5000/bills/by-resident/${resId}`,
+        );
         setBills(billsRes.data);
       } catch (err) {
-        console.error('Failed to fetch bills:', err);
+        console.error("Failed to fetch bills:", err);
       }
     };
 
@@ -41,22 +44,22 @@ const Bills = () => {
   const handlePayNow = async (billId) => {
     try {
       await axios.post(`http://localhost:5000/bills/pay/${billId}`);
-      setBills(prev =>
-        prev.map(b => (b._id === billId ? { ...b, status: 'Paid' } : b))
+      setBills((prev) =>
+        prev.map((b) => (b._id === billId ? { ...b, status: "Paid" } : b)),
       );
-      alert('Payment successful!');
+      alert("Payment successful!");
     } catch (err) {
-      console.error('Payment failed:', err);
-      alert('Failed to complete payment');
+      console.error("Payment failed:", err);
+      alert("Failed to complete payment");
     }
   };
 
-  const filteredBills = bills.filter(bill =>
-    filter === 'All' ? true : bill.category === filter
+  const filteredBills = bills.filter((bill) =>
+    filter === "All" ? true : bill.category === filter,
   );
 
-  const unpaidBills = filteredBills.filter(b => b.status === 'Unpaid');
-  const paidBills = filteredBills.filter(b => b.status === 'Paid');
+  const unpaidBills = filteredBills.filter((b) => b.status === "Unpaid");
+  const paidBills = filteredBills.filter((b) => b.status === "Paid");
 
   return (
     <div className="page-content">
@@ -86,20 +89,27 @@ const Bills = () => {
             </tr>
           </thead>
           <tbody>
-            {unpaidBills.length > 0 ? unpaidBills.map(bill => (
-              <tr key={bill._id}>
-                <td>{bill._id}</td>
-                <td>₹{bill.amount}</td>
-                <td>{formatDateTime(bill.due_date)}</td>
-                <td>{bill.category}</td>
-                <td>
-                  <button className="pay-btn" onClick={() => handlePayNow(bill._id)}>
-                    Pay Now
-                  </button>
-                </td>
+            {unpaidBills.length > 0 ? (
+              unpaidBills.map((bill) => (
+                <tr key={bill._id}>
+                  <td>{bill._id}</td>
+                  <td>₹{bill.amount}</td>
+                  <td>{formatDateTime(bill.due_date)}</td>
+                  <td>{bill.category}</td>
+                  <td>
+                    <button
+                      className="pay-btn"
+                      onClick={() => handlePayNow(bill._id)}
+                    >
+                      Pay Now
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5">No unpaid bills found.</td>
               </tr>
-            )) : (
-              <tr><td colSpan="5">No unpaid bills found.</td></tr>
             )}
           </tbody>
         </table>
@@ -116,16 +126,20 @@ const Bills = () => {
             </tr>
           </thead>
           <tbody>
-            {paidBills.length > 0 ? paidBills.map(bill => (
-              <tr key={bill._id}>
-                <td>{bill._id}</td>
-                <td>₹{bill.amount}</td>
-                <td>{bill.paid_on ? formatDateTime(bill.paid_on) : 'N/A'}</td>
-                <td>{bill.category}</td>
-                <td className="paid">Paid</td>
+            {paidBills.length > 0 ? (
+              paidBills.map((bill) => (
+                <tr key={bill._id}>
+                  <td>{bill._id}</td>
+                  <td>₹{bill.amount}</td>
+                  <td>{bill.paid_on ? formatDateTime(bill.paid_on) : "N/A"}</td>
+                  <td>{bill.category}</td>
+                  <td className="paid">Paid</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5">No paid bills yet.</td>
               </tr>
-            )) : (
-              <tr><td colSpan="5">No paid bills yet.</td></tr>
             )}
           </tbody>
         </table>

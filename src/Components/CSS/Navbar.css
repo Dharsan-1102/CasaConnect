@@ -8,7 +8,7 @@
   position: sticky;
   top: 0;
   z-index: 999;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .navbar {
@@ -57,7 +57,7 @@
 }
 
 .navbar nav a::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: -5px;
@@ -82,7 +82,7 @@
   background: white;
   border: 1px solid #ddd;
   border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   list-style: none;
   padding: 0;
   margin: 0;
@@ -248,16 +248,15 @@
 }
 
 .submenu-toggle::after {
-  content: '▸';
+  content: "▸";
   margin-left: 0.5rem;
   transition: transform 0.2s ease;
 }
 
 .submenu-toggle.open::after {
-  content: '▾';
+  content: "▾";
   transform: rotate(90deg);
 }
-
 
 .dropdown-menu {
   position: absolute;
@@ -266,18 +265,18 @@
   background: white;
   border: 1px solid #ddd;
   border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   list-style: none;
   padding: 0;
   margin: 0;
   z-index: 999;
   min-width: 200px;
-  overflow: visible; 
+  overflow: visible;
 }
 
 .dropdown-menu > li {
-  position: relative; 
-  overflow: visible;  
+  position: relative;
+  overflow: visible;
 }
 
 .submenu-column {
@@ -287,7 +286,7 @@
   background: white;
   border-left: 2px solid #007bff;
   padding: 0.5rem;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   min-width: 180px;
   border-radius: 8px;
   z-index: 1001;

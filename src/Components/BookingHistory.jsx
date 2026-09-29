@@ -1,44 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import './css/BookingHistory.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./css/BookingHistory.css";
 
 const BookingHistory = () => {
   const [bookings, setBookings] = useState([]);
-  const [message, setMessage] = useState('');
-  const token = localStorage.getItem('token');
+  const [message, setMessage] = useState("");
+  const token = localStorage.getItem("token");
 
   const formatDate = (dateStr) => {
-  const [year, month, day] = new Date(dateStr).toISOString().split('T')[0].split('-');
-  return `${day}-${month}-${year}`;
-};
+    const [year, month, day] = new Date(dateStr)
+      .toISOString()
+      .split("T")[0]
+      .split("-");
+    return `${day}-${month}-${year}`;
+  };
 
   const fetchBookingHistory = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/bookings', {
-        headers: { Authorization: `Bearer ${token}` }
+      const res = await axios.get("http://localhost:5000/bookings", {
+        headers: { Authorization: `Bearer ${token}` },
       });
       setBookings(res.data);
     } catch (err) {
-      console.error('Error fetching booking history:', err);
-      setMessage('Failed to load booking history.');
+      console.error("Error fetching booking history:", err);
+      setMessage("Failed to load booking history.");
     }
   };
 
   const cancelBooking = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/bookings/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
-      setMessage('Booking cancelled successfully.');
-      fetchBookingHistory(); 
+      setMessage("Booking cancelled successfully.");
+      fetchBookingHistory();
     } catch (err) {
-      console.error('Cancel error:', err);
-      setMessage('Error cancelling booking.');
+      console.error("Cancel error:", err);
+      setMessage("Error cancelling booking.");
     }
   };
 
   useEffect(() => {
     fetchBookingHistory();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -51,11 +55,20 @@ const BookingHistory = () => {
       ) : (
         bookings.map((booking) => (
           <div key={booking._id} className="booking-card">
-            <h3>{booking.amenity_id?.name || 'Amenity'}</h3>
-            <p><strong>Date:</strong> {formatDate(booking.booking_date)}</p>
-            <p><strong>Time:</strong> {booking.start_time}</p>
-            <p><strong>Status:</strong> {booking.status}</p>
-            <button className="cancel-btn" onClick={() => cancelBooking(booking._id)}>
+            <h3>{booking.amenity_id?.name || "Amenity"}</h3>
+            <p>
+              <strong>Date:</strong> {formatDate(booking.booking_date)}
+            </p>
+            <p>
+              <strong>Time:</strong> {booking.start_time}
+            </p>
+            <p>
+              <strong>Status:</strong> {booking.status}
+            </p>
+            <button
+              className="cancel-btn"
+              onClick={() => cancelBooking(booking._id)}
+            >
               ❌ Cancel Booking
             </button>
           </div>

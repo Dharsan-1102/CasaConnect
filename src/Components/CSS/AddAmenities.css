@@ -4,7 +4,7 @@
   align-items: center;
   min-height: 100vh;
   background: linear-gradient(to right, #ece9e6, #ffffff);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   padding: 1rem;
   box-sizing: border-box;
 }
@@ -118,7 +118,9 @@
   border: 1px solid #ccc;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .add-amenities-form-group select:focus {

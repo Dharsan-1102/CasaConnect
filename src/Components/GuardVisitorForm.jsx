@@ -1,17 +1,19 @@
-import React, { useState,useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
-import './CSS/GuardVisitorForm.css';
-import VisitorImg from '../assets/visitor-img.png';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+// eslint-disable-next-line no-unused-vars
+import { useNavigate, Link } from "react-router-dom";
+import "./CSS/GuardVisitorForm.css";
+import VisitorImg from "../assets/visitor-img.png";
 
 const GuardVisitorForm = () => {
   const [residents, setResidents] = useState([]);
-  const role = localStorage.getItem('userRole');
-  const apartment = localStorage.getItem('userApartment');
+  const role = localStorage.getItem("userRole");
+  const apartment = localStorage.getItem("userApartment");
+  // eslint-disable-next-line no-unused-vars
   const [loggedInUser, setLoggedInUser] = useState({
-  id: localStorage.getItem('userId'),
-  name: localStorage.getItem('userName'),
-});
+    id: localStorage.getItem("userId"),
+    name: localStorage.getItem("userName"),
+  });
 
   const [flats, setFlats] = useState([]);
 
@@ -19,20 +21,28 @@ const GuardVisitorForm = () => {
     const fetchData = async () => {
       try {
         if (apartment) {
-          const resResidents = await axios.get(`http://localhost:5000/residents-by-apartment/${apartment}`);
+          const resResidents = await axios.get(
+            `http://localhost:5000/residents-by-apartment/${apartment}`,
+          );
           const updatedResidents = [...resResidents.data];
 
-          if (role === 'guard') {
-            updatedResidents.push({ _id: loggedInUser.id, name: loggedInUser.name, flat: 'Security' });
+          if (role === "guard") {
+            updatedResidents.push({
+              _id: loggedInUser.id,
+              name: loggedInUser.name,
+              flat: "Security",
+            });
           }
 
           setResidents(updatedResidents);
 
-          const resFlats = await axios.get(`http://localhost:5000/flat/by-apartment/${apartment}`);
+          const resFlats = await axios.get(
+            `http://localhost:5000/flat/by-apartment/${apartment}`,
+          );
           setFlats(resFlats.data);
         }
       } catch (err) {
-        console.error('Failed to fetch residents or flats:', err);
+        console.error("Failed to fetch residents or flats:", err);
       }
     };
 
@@ -40,23 +50,31 @@ const GuardVisitorForm = () => {
   }, [apartment, role, loggedInUser.id, loggedInUser.name]);
 
   const [visitor, setVisitor] = useState({
-    name: '', phone_number: '', vehicle_number: '',
-    purpose: '', flat_number: '', photo_url: '',
-    approved_by: '', entry_point: ''
+    name: "",
+    phone_number: "",
+    vehicle_number: "",
+    purpose: "",
+    flat_number: "",
+    photo_url: "",
+    approved_by: "",
+    entry_point: "",
   });
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setVisitor({ ...visitor, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/visitor-add', visitor);
+      const res = await axios.post(
+        "http://localhost:5000/visitor-add",
+        visitor,
+      );
       alert("Visitor logged successfully!");
-      window.open(`/print-ticket/${res.data.log._id}`, '_blank');
+      window.open(`/print-ticket/${res.data.log._id}`, "_blank");
     } catch (err) {
-      console.error('Error logging visitor:', err);
+      console.error("Error logging visitor:", err);
     }
   };
 
@@ -95,9 +113,14 @@ const GuardVisitorForm = () => {
 
             <div className="guard-form-group">
               <label>Flat Number:</label>
-              <select name="flat_number" value={visitor.flat_number} onChange={handleChange} required>
+              <select
+                name="flat_number"
+                value={visitor.flat_number}
+                onChange={handleChange}
+                required
+              >
                 <option value="">Select Flat</option>
-                {flats.map(flat => (
+                {flats.map((flat) => (
                   <option key={flat._id} value={flat.flat_number}>
                     {flat.flat_number} - Block {flat.block}
                   </option>
@@ -109,7 +132,7 @@ const GuardVisitorForm = () => {
               <label>Approved By (Resident / Gaurd):</label>
               <select name="approved_by" onChange={handleChange} required>
                 <option value="">Select Resident</option>
-                {residents.map(res => (
+                {residents.map((res) => (
                   <option key={res._id} value={res._id}>
                     {res.name} ({res.flat})
                   </option>
@@ -122,9 +145,13 @@ const GuardVisitorForm = () => {
               <input name="entry_point" onChange={handleChange} />
             </div>
 
-            <button type="submit" className="guard-submit-btn">Generate Ticket</button>
+            <button type="submit" className="guard-submit-btn">
+              Generate Ticket
+            </button>
 
-            <Link to="/checked-in" className="guard-view-btn">View Checked-In Visitors</Link>
+            <Link to="/checked-in" className="guard-view-btn">
+              View Checked-In Visitors
+            </Link>
           </form>
         </div>
       </div>

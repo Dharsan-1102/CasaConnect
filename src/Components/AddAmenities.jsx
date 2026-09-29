@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import Navbar from './Navbar';
-import axios from 'axios';
-import './CSS/AddAmenities.css';
-import turfImg from '../assets/turf.png';
-import poolImg from '../assets/swimming-pool.png';
-import gymImg from '../assets/gym.png';
-import beautyImg from '../assets/beauty-parlour.png';
+import React, { useEffect, useState } from "react";
+import Navbar from "./Navbar";
+import axios from "axios";
+import "./CSS/AddAmenities.css";
+import turfImg from "../assets/turf.png";
+import poolImg from "../assets/swimming-pool.png";
+import gymImg from "../assets/gym.png";
+import beautyImg from "../assets/beauty-parlour.png";
 
 const amenityImages = [turfImg, poolImg, gymImg, beautyImg];
 
 const AddAmenities = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    type: '',
-    location: '',
-    rules: '',
-    available_slots: ''
+    name: "",
+    type: "",
+    location: "",
+    rules: "",
+    available_slots: "",
   });
-  
-  const [message, setMessage] = useState('');
+
+  const [message, setMessage] = useState("");
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
   useEffect(() => {
@@ -29,26 +29,35 @@ const AddAmenities = () => {
   }, []);
 
   const handleChange = (e) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/amenities', formData);
+      const response = await axios.post(
+        "http://localhost:5000/amenities",
+        formData,
+      );
 
       if (response.status === 200 || response.status === 201) {
-        setMessage('Amenity added successfully!');
-        setFormData({ name: '', type: '', location: '', rules: '', available_slots: '' });
+        setMessage("Amenity added successfully!");
+        setFormData({
+          name: "",
+          type: "",
+          location: "",
+          rules: "",
+          available_slots: "",
+        });
       } else {
-        setMessage('Failed to add amenity.');
+        setMessage("Failed to add amenity.");
       }
     } catch (error) {
-      console.error('Error adding amenity:', error);
-      setMessage('Server error. Please try again later.');
+      console.error("Error adding amenity:", error);
+      setMessage("Server error. Please try again later.");
     }
   };
 

@@ -4,7 +4,7 @@
   align-items: center;
   min-height: 100vh;
   background: linear-gradient(to right, #ece9e6, #ffffff);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   padding: 1rem;
   box-sizing: border-box;
 }
@@ -120,14 +120,16 @@
   background: #f9f9f9;
   padding: 1rem 2rem;
   border-radius: 10px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .society-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .society-card h4 {

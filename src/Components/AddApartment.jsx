@@ -1,45 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Navbar from './Navbar';
-import './CSS/AddApartment.css';
-import ApartmentImg from '../assets/add-apartment.png';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Navbar from "./Navbar";
+import "./CSS/AddApartment.css";
+import ApartmentImg from "../assets/add-apartment.png";
 
 const AddApartment = () => {
   const [societies, setSocieties] = useState([]);
-  const [customSociety, setCustomSociety] = useState('');
+  const [customSociety, setCustomSociety] = useState("");
   const [apartments, setApartments] = useState([]);
   const [form, setForm] = useState({
-    name: '',
-    society_id: '',
-    total_blocks: '',
-    total_flats: '',
+    name: "",
+    society_id: "",
+    total_blocks: "",
+    total_flats: "",
   });
 
   useEffect(() => {
-    axios.get('http://localhost:5000/society/all')
-      .then(res => {
+    axios
+      .get("http://localhost:5000/society/all")
+      .then((res) => {
         if (Array.isArray(res.data)) {
           setSocieties(res.data);
         } else {
           setSocieties([]);
         }
       })
-      
-      .catch(err => {
-        console.error('Error fetching societies:', err);
+
+      .catch((err) => {
+        console.error("Error fetching societies:", err);
         setSocieties([]);
       });
 
-    axios.get('http://localhost:5000/apartment/all')
-      .then(res => {
+    axios
+      .get("http://localhost:5000/apartment/all")
+      .then((res) => {
         if (Array.isArray(res.data)) {
           setApartments(res.data);
         } else {
           setApartments([]);
         }
       })
-      .catch(err => {
-        console.error('Error fetching apartments:', err);
+      .catch((err) => {
+        console.error("Error fetching apartments:", err);
         setApartments([]);
       });
   }, []);
@@ -54,7 +56,9 @@ const AddApartment = () => {
 
     try {
       if (!societyId && customSociety) {
-        const newSoc = await axios.post('http://localhost:5000/society/add', { name: customSociety });
+        const newSoc = await axios.post("http://localhost:5000/society/add", {
+          name: customSociety,
+        });
         societyId = newSoc.data._id;
       }
 
@@ -62,18 +66,18 @@ const AddApartment = () => {
         name: form.name,
         society_id: societyId,
         total_blocks: form.total_blocks,
-        total_flats: form.total_flats
+        total_flats: form.total_flats,
       };
 
-      await axios.post('http://localhost:5000/apartment/add', payload);
-      alert('Apartment added successfully!');
-      setForm({ name: '', society_id: '', total_blocks: '', total_flats: '' });
-      setCustomSociety('');
+      await axios.post("http://localhost:5000/apartment/add", payload);
+      alert("Apartment added successfully!");
+      setForm({ name: "", society_id: "", total_blocks: "", total_flats: "" });
+      setCustomSociety("");
 
-      const updated = await axios.get('http://localhost:5000/apartment/all');
+      const updated = await axios.get("http://localhost:5000/apartment/all");
       setApartments(updated.data);
     } catch (err) {
-      console.error('Error adding apartment:', err);
+      console.error("Error adding apartment:", err);
     }
   };
 
@@ -85,19 +89,31 @@ const AddApartment = () => {
         <div className="add-apartment-box">
           <div className="add-apartment-left">
             <h1>Add Apartment</h1>
-            <p className="subtitle">Link your apartment to an existing or new society</p>
-            <img src={ApartmentImg} alt="Add Apartment" className="add-apartment-image" />
+            <p className="subtitle">
+              Link your apartment to an existing or new society
+            </p>
+            <img
+              src={ApartmentImg}
+              alt="Add Apartment"
+              className="add-apartment-image"
+            />
           </div>
 
           <div className="add-apartment-right">
             <form className="add-apartment-form" onSubmit={handleSubmit}>
               <div className="addapartment-form-group">
                 <label>Choose Society</label>
-                <select name="society_id" value={form.society_id} onChange={handleChange}>
+                <select
+                  name="society_id"
+                  value={form.society_id}
+                  onChange={handleChange}
+                >
                   <option value="">Select Society</option>
                   {Array.isArray(societies) && societies.length > 0 ? (
-                    societies.map(s => (
-                      <option key={s._id} value={s._id}>{s.name}</option>
+                    societies.map((s) => (
+                      <option key={s._id} value={s._id}>
+                        {s.name}
+                      </option>
                     ))
                   ) : (
                     <option disabled>No societies found</option>
@@ -141,7 +157,9 @@ const AddApartment = () => {
                 />
               </div>
 
-              <button className="add-apartment-btn" type="submit">Add Apartment</button>
+              <button className="add-apartment-btn" type="submit">
+                Add Apartment
+              </button>
             </form>
           </div>
         </div>
@@ -151,12 +169,12 @@ const AddApartment = () => {
         <h3>Existing Apartments</h3>
         <div className="apartment-cards">
           {Array.isArray(apartments) && apartments.length > 0 ? (
-            apartments.map(a => (
+            apartments.map((a) => (
               <div className="apartment-card" key={a._id}>
                 <h4>{a.name}</h4>
                 <p>Blocks: {a.total_blocks}</p>
                 <p>Flats: {a.total_flats}</p>
-                <p>Society: {a.society_id?.name || 'N/A'}</p>
+                <p>Society: {a.society_id?.name || "N/A"}</p>
               </div>
             ))
           ) : (

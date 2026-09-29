@@ -1,5 +1,5 @@
 .dashboard {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background: linear-gradient(to right, #f0f0f0, #ffffff);
   min-height: 100vh;
   padding-bottom: 2rem;
@@ -94,7 +94,9 @@ button {
   border-radius: 6px;
   cursor: pointer;
   margin-top: 0.6rem;
-  transition: background-color 0.3s, transform 0.2s;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
 }
 
 button:hover {
@@ -204,4 +206,3 @@ button:hover {
     padding: 1.2rem;
   }
 }
-
