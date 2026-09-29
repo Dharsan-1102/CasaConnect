@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
-import "./css/AcceptResidents.css";
+import "./CSS/AcceptResidents.css";
 
 const AcceptResidents = () => {
   const [residents, setResidents] = useState([]);
